@@ -1,0 +1,16 @@
+{
+  "name": "playwright-bdd",
+  "version": "1.0.0",
+  "scripts": {
+    "test:bdd": "cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.56.1"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.9.0",
+    "@types/node": "^24.9.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
