@@ -1,0 +1,33 @@
+name: Run Playwright BDD Tests  
+
+on:
+  push:
+    branches:
+      - main       
+  pull_request:
+    branches:
+      - main       
+jobs:
+  bdd-tests:
+    runs-on: ubuntu-latest  
+
+    steps:
+      
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      
+      - name: Install dependencies
+        run: npm install
+
+      
+      - name: Run BDD tests (headless)
+        run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
+        env:
+          CI: true  
