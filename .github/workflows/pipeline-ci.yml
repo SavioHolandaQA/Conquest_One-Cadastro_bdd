@@ -1,33 +1,38 @@
-name: Run Playwright BDD Tests  
+name: Run Playwright BDD Tests
 
 on:
   push:
     branches:
-      - main       
+      - main
   pull_request:
     branches:
-      - main       
+      - main
+
 jobs:
   bdd-tests:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
 
     steps:
-      
+      # 1️⃣ Baixa o código do repositório
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      
+      # 2️⃣ Configura o Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      
+      # 3️⃣ Instala dependências do package.json
       - name: Install dependencies
         run: npm install
 
-      
+      # 4️⃣ Instala os navegadores do Playwright
+      - name: Install Playwright Browsers
+        run: npx playwright install
+
+      # 5️⃣ Roda os testes BDD (headless)
       - name: Run BDD tests (headless)
         run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
         env:
-          CI: true  
+          CI: true
